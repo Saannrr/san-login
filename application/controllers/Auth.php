@@ -3,12 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Auth_model');
-        $this->load->library('form_validation');
-    }
 
     public function index()
     {
@@ -95,5 +89,13 @@ class Auth extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out</div>');
         redirect('auth');
+    }
+
+    public function blocked()
+    {
+        $data['title'] = 'Access Blocked!';
+        $this->load->view('templates/auth_header', $data);
+        $this->load->view('auth/blocked', $data);
+        $this->load->view('templates/footer');
     }
 }

@@ -38,7 +38,13 @@
         ?>
 
         <?php foreach ($subMenu as $sm) : ?>
-            <li class="nav-item">
+            <?php
+            $active = '';
+            if ($sm['url'] == uri_string()) {
+                $active = 'active';
+            }
+            ?>
+            <li class="nav-item <?= $active; ?>">
                 <a class="nav-link" href="<?= $sm['url']; ?>">
                     <i class="fas fa-fw fa-<?= $sm['icon']; ?>"></i>
                     <span><?= $sm['title']; ?></span>
