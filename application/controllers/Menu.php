@@ -12,7 +12,7 @@ class Menu extends CI_Controller
 
     public function index()
     {
-        $data['role'] = 'Admin';
+        $data['role_title'] = 'Admin';
         $data['title'] = 'Menu Management ';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['menu'] = $this->db->get('user_menu')->result_array();
@@ -37,7 +37,7 @@ class Menu extends CI_Controller
 
     public function subMenu()
     {
-        $data['role'] = 'Admin';
+        $data['role_title'] = 'Admin';
         $data['title'] = 'Submenu Management';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
@@ -76,7 +76,7 @@ class Menu extends CI_Controller
 
     public function edit($id)
     {
-        $data['role'] = 'Admin';
+        $data['role_title'] = 'Admin';
         $data['title'] = 'Edit Menu';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['menu'] = $this->db->get('user_menu')->result_array();
