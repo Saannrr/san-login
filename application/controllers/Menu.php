@@ -8,6 +8,7 @@ class Menu extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Menu_model'); // Load the Menu_model
     }
 
     public function index()
@@ -74,12 +75,11 @@ class Menu extends CI_Controller
         }
     }
 
-    public function edit($id)
+    public function editMenu($id)
     {
         $data['role_title'] = 'Admin';
         $data['title'] = 'Edit Menu';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['menu'] = $this->db->get('user_menu')->result_array();
         $data['menu'] = $this->Menu_model->getMenuById($id);
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
@@ -88,19 +88,18 @@ class Menu extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('menu/edit', $data);
+            $this->load->view('menu/editmenu', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Menu_model->ubahDataMenu(); // sesuaikan dengan yang ada di Menu_model
+            $this->Menu_model->editMenu($id); // Memperbaiki pemanggilan fungsi editMenu dengan parameter $id
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Menu has been updated</div>');
             redirect('menu');
         }
     }
 
-    public function delete($id)
+    public function deleteMenu($id)
     {
-        $this->load->model('Menu_model'); // Load the Menu_model
-        $this->Menu_model->delete($id);
+        $this->Menu_model->deleteMenu($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role"alert">Menu has been deleted
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
